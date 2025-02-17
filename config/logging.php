@@ -56,6 +56,9 @@ return [
             'driver' => 'stack',
             'channels' => explode(',', env('LOG_STACK', 'single')),
             'ignore_exceptions' => false,
+            'formatter_with' => [
+                'dateFormat' => 'Y-m-d H:i:s',
+                ],
         ],
 
         'single' => [
@@ -63,6 +66,10 @@ return [
             'path' => storage_path('logs/laravel.log'),
             'level' => env('LOG_LEVEL', 'debug'),
             'replace_placeholders' => true,
+            'formatter' => Monolog\Formatter\LineFormatter::class,
+            'formatter_with' => [
+                'dateFormat' => 'Y-m-d H:i:s',
+            ],
         ],
 
         'daily' => [
