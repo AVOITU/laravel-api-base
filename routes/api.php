@@ -11,10 +11,6 @@ use App\Http\Controllers\Auth\VerifyEmailController;
 
 Route::post('/register', [RegisteredUserController::class, 'store']);
 
-Route::get('/test', function () {
-    return response()->file(storage_path('test.php'));
-});
-
 Route::post('/tokens/create', function (Request $request) {
     $token = $request->user()->createToken($request->token_name);
 
