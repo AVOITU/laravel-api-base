@@ -30,7 +30,7 @@ class RegisteredUserController extends Controller
             return response()->json([
                 'message' => 'Erreur de validation',
                 'errors' => $e->errors()
-            ]);
+            ], 422);
         }
     
         $user = User::create([
