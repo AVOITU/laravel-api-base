@@ -13,12 +13,6 @@ Route::post('/register', [RegisteredUserController::class, 'store']);
 
 Route::post('/tokens/create', function (Request $request) {
     $token = $request->user()->createToken($request->token_name);
-
-    foreach ($user->tokens as $token) {
-        // TODO enlever avant la production
-        echo("token créé");
-        echo($token);
-    }
  
     return ['token' => $token->plainTextToken];
 });
