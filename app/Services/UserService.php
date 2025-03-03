@@ -8,15 +8,10 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Validation\Rules\Password;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Facades\Log;
+use App\Services\Contracts\UserServiceInterface;
 
-class UserService
+class UserService implements UserServiceInterface
 {
-    /**
-     * Valide et crée un nouvel utilisateur.
-     *
-     * @throws ValidationException
-     */
     public function register(array $data): User
     {
         // Validation des données
