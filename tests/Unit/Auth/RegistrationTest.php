@@ -3,6 +3,7 @@
 namespace Tests\Unit\Auth;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 use App\Models\User;
 
@@ -11,8 +12,7 @@ class RegistrationTest extends TestCase
     use RefreshDatabase;
 
 
-    /** @test */
-    public function user_register_successfull()
+    #[Test] public function user_register_successfull()
     {
         $response = $this->postJson('/api/register', [
             'name' => 'John Doe',
@@ -33,8 +33,7 @@ class RegistrationTest extends TestCase
         ]);
     }
 
-    /** @test */
-    public function registration_fails_if_name_is_missing()
+    #[Test] public function registration_fails_if_name_is_missing()
     {
         $response = $this->postJson('/api/register', [
             'email' => 'test@example.com',
@@ -46,8 +45,7 @@ class RegistrationTest extends TestCase
                 ->assertJsonValidationErrors(['name']);
     }
 
-    /** @test */
-    public function registration_fails_if_email_already_exists()
+    #[Test] public function registration_fails_if_email_already_exists()
     {
         User::factory()->create(['email' => 'test@example.com']);
 
@@ -62,21 +60,19 @@ class RegistrationTest extends TestCase
                 ->assertJsonValidationErrors(['email']);
     }
 
-        /** @test */
-        public function registration_fails_if_password_is_missing()
+    #[Test] public function registration_fails_if_password_is_missing()
         {
             $response = $this->postJson('/api/register', [
                 'name' => 'Test User',
                 'email' => 'test@example.com',
                 'password_confirmation' => 'password123',
             ]);
-    
+
             $response->assertStatus(422)
                     ->assertJsonValidationErrors(['password']);
         }
 
-    /** @test */
-    public function registration_fails_if_password_confirmation_does_not_match()
+    #[Test] public function registration_fails_if_password_confirmation_does_not_match()
     {
         $response = $this->postJson('/api/register', [
             'name' => 'Test User',
