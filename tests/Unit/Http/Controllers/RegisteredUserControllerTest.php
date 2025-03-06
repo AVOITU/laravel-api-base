@@ -3,12 +3,14 @@
 namespace Tests\Unit\Http\Controllers;
 
 use App\Services\Contracts\UserServiceInterface;
+use Exception;
 use Mockery;
+use Mockery\MockInterface;
 use Tests\TestCase;
 
 class RegisteredUserControllerTest extends TestCase
 {
-    private $userServiceMock;
+    private MockInterface|UserServiceInterface $userServiceMock;
 
     protected function setUp(): void
     {
@@ -50,7 +52,7 @@ class RegisteredUserControllerTest extends TestCase
         $this->userServiceMock
             ->shouldReceive('register')
             ->once()
-            ->andThrow(new \Exception('Unexpected error'));
+            ->andThrow(new Exception('Unexpected error'));
 
         $response = $this->postJson('/api/register', [
             'name' => 'John Doe',

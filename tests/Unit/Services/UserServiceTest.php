@@ -9,11 +9,12 @@ use App\Services\UserService;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Event;
 use Mockery;
+use Mockery\MockInterface;
 use Tests\TestCase;
 
 class UserServiceTest extends TestCase
 {
-    private $userRepositoryMock;
+    protected MockInterface|UserRepositoryInterface $userRepositoryMock;
     private UserServiceInterface $userService;
 
     protected function setUp(): void
