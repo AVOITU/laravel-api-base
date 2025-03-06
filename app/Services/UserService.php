@@ -3,38 +3,34 @@
 namespace App\Services;
 
 use App\Models\User;
+use App\Repositories\Contracts\UserRepositoryInterface;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Validation\ValidationException;
-use Illuminate\Validation\Rules\Password;
-use Illuminate\Support\Facades\Validator;
 use App\Services\Contracts\UserServiceInterface;
 
 class UserService implements UserServiceInterface
 {
-    public function register(array $data): User
+
+    private UserRepositoryInterface $userRepository;
+
+    public function __construct(UserRepositoryInterface $userRepository)
     {
-        // Validation des données
-        $validator = Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:' . User::class],
-            'password' => ['required', 'confirmed', Password::defaults()],
-        ]);
+        $this->userRepository = $userRepository;
+    }
 
-        if ($validator->fails()) {
-            throw new ValidationException($validator);
-        }
+    public function register(array $data): array
+    {
 
-        // Création de l'utilisateur
-        $user = User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-        ]);
+        $data['password'] = Hash::make($data['password']);
+        $user = $this->userRepository->createUser($data);
+        $token = $user->createToken('auth_token')->plainTextToken;
 
-        // Déclencher l'événement
         event(new Registered($user));
 
-        return $user;
+        return [
+            'user' => $user,
+            'access_token' => $token,
+            'token_type' => 'Bearer'
+        ];
     }
 }

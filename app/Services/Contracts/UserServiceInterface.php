@@ -12,5 +12,5 @@ interface UserServiceInterface
      *
      * @throws ValidationException
      */
-    public function register(array $data): User;
+    public function register(array $data): array;
 }

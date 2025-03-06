@@ -12,5 +12,5 @@ interface UserRepositoryInterface
      *
      * @throws ValidationException
      */
-    public function create(array $data): User;
+    public function createUser(array $data): User;
 }
