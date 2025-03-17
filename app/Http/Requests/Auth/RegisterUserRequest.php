@@ -34,6 +34,7 @@ class RegisterUserRequest extends FormRequest
         ];
     }
 
+    // OVERRIDE allowing original response from rules() to respond with json instead of array
     protected function failedValidation(Validator $validator)
     {
         throw new HttpResponseException(response()->json($validator->errors(), 422));
