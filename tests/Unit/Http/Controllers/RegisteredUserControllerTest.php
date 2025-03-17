@@ -19,7 +19,7 @@ class RegisteredUserControllerTest extends TestCase
         $this->app->instance(UserServiceInterface::class, $this->userServiceMock);
     }
 
-    public function test_store_returns_201_on_successful_registration()
+    #[Test] public function test_store_returns_201_on_successful_registration()
     {
         $userData = [
             'user' => [
@@ -47,7 +47,7 @@ class RegisteredUserControllerTest extends TestCase
             ->assertJson($userData);
     }
 
-    public function test_store_returns_500_on_service_exception()
+    #[Test] public function test_store_returns_500_on_service_exception()
     {
         $this->userServiceMock
             ->shouldReceive('register')

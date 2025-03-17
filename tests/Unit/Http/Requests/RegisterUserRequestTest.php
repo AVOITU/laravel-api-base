@@ -8,7 +8,7 @@ use Tests\TestCase;
 
 class RegisterUserRequestTest extends TestCase
 {
-    public function test_register_user_request_passes_with_valid_data()
+    #[Test] public function test_register_user_request_passes_with_valid_data()
     {
         $data = [
             'name' => 'John Doe',
@@ -23,7 +23,7 @@ class RegisterUserRequestTest extends TestCase
         $this->assertTrue($validator->passes());
     }
 
-    public function test_register_user_request_fails_with_invalid_email()
+    #[Test] public function test_register_user_request_fails_with_invalid_email()
     {
         $data = [
             'name' => 'John Doe',

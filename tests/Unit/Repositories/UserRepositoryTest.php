@@ -20,7 +20,7 @@ class UserRepositoryTest extends TestCase
         $this->userRepository = new UserRepository();
     }
 
-    public function test_create_user_successfully()
+    #[Test] public function test_create_user_successfully()
     {
         $data = [
             'name' => 'John Doe',

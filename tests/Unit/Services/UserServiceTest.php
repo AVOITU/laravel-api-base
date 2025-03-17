@@ -17,14 +17,14 @@ class UserServiceTest extends TestCase
     protected MockInterface|UserRepositoryInterface $userRepositoryMock;
     private UserServiceInterface $userService;
 
-    protected function setUp(): void
+    #[Test] protected function setUp(): void
     {
         parent::setUp();
         $this->userRepositoryMock = Mockery::mock(UserRepositoryInterface::class);
         $this->userService = new UserService($this->userRepositoryMock);
     }
 
-    public function test_register_user_successfully()
+    #[Test] public function test_register_user_successfully()
     {
         Event::fake(); // Empêche l'exécution réelle des événements
         $user = User::factory()->make(['id' => 1]); // Générer un user fake
