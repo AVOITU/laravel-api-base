@@ -6,6 +6,8 @@ use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rules\Password;
 use App\Models\User;
+use Illuminate\Contracts\Validation\Validator;
+use Illuminate\Http\Exceptions\HttpResponseException;
 
 class RegisterUserRequest extends FormRequest
 {
@@ -31,4 +33,10 @@ class RegisterUserRequest extends FormRequest
             'password' => ['required', 'confirmed', Password::defaults()],
         ];
     }
+
+    protected function failedValidation(Validator $validator)
+    {
+        throw new HttpResponseException(response()->json($validator->errors(), 422));
+    }
+
 }
